@@ -5,7 +5,8 @@
 
     <script type="text/javascript" charset="utf-8" src="cordova.js"></script>
 	
-<script src="https://www.gstatic.com/firebasejs/3.3.0/firebase.js"></script>
+
+    <script src="https://www.gstatic.com/firebasejs/3.3.0/firebase.js"></script>
     
     <script type="text/javascript" charset="utf-8">
   var config = {
@@ -64,11 +65,13 @@
         db.transaction(populateDB, errorCB);
     }
 function enviar(pagina){
-alert("se cerro su seccion");
+alert("a");
   firebase.initializeApp(config);
+  alert("b");
 var form=document.login;
 var correo=form.correo.value;
 var password=form.password.value;
+alert("se ");
   //firebase.auth().createUserWithEmailAndPassword(correo,password).catch(function(error) {
  // var errorCode = error.code;
  // var errorMessage = error.message;
@@ -89,7 +92,6 @@ firebase.auth().signInWithEmailAndPassword(correo, password).catch(function(erro
 
 }
 function cerrar(){
-alert("se cerro su seccion");
 firebase.auth().signOut().then(function() {
   // Sign-out successful.
 }, function(error) {
