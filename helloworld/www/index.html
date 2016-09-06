@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Storage Example</title>
+
+    <script type="text/javascript" charset="utf-8" src="cordova.js"></script>
+	
+<script src="https://www.gstatic.com/firebasejs/3.3.0/firebase.js"></script>
+    
+    <script type="text/javascript" charset="utf-8">
+  var config = {
+    apiKey: "AIzaSyA1-F3q9oonjGBjfXzKP4mRuL0i4DpDBYg",
+    authDomain: "foto12.firebaseapp.com",
+    databaseURL: "https://foto12.firebaseio.com",
+    storageBucket: "project-4465143084602545786.appspot.com",
+  };
+
+
+    // Wait for device API libraries to load
+    //
+    document.addEventListener("deviceready", onDeviceReady, false);
+	
+    // Populate the database
+    //
+    function populateDB(tx) {
+        tx.executeSql('CREATE TABLE IF NOT EXISTS Usuarios (id unique, data,data)');
+       // tx.executeSql('INSERT INTO DEMO (id, data) VALUES (1, "First row")');
+       // tx.executeSql('INSERT INTO DEMO (id, data) VALUES (2, "Second row")');
+    }
+
+    // Query the database
+    //
+    function queryDB(tx) {
+        tx.executeSql('SELECT * FROM Usuarios', [], querySuccess, errorCB);
+    }
+
+    // Query the success callback
+    //
+    function querySuccess(tx, results) {
+        var len = results.rows.length;
+        
+        for (var i=0; i<len; i++){
+            alert.log("Row = " + i + " ID = " + results.rows.item(i).id + " Data =  " + results.rows.item(i).data);
+        }
+    }
+
+    // Transaction error callback
+    //
+    function errorCB(err) {
+        alert.log("Error processing SQL: "+err.code);
+    }
+
+    // Transaction success callback
+    //
+    function successCB() {
+        var db = window.openDatabase("Database", "1.0", "Cordova Demo", 200000);
+        db.transaction(queryDB, errorCB);
+    }
+
+    // device APIs are available
+    //
+    function onDeviceReady() {
+        var db = window.openDatabase("Database", "1.0", "Cordova Demo", 200000);
+        db.transaction(populateDB, errorCB);
+    }
+function enviar(pagina){
+  firebase.initializeApp(config);
+var form=document.login;
+var correo=form.correo.value;
+var password=form.password.value;
+  //firebase.auth().createUserWithEmailAndPassword(correo,password).catch(function(error) {
+ // var errorCode = error.code;
+ // var errorMessage = error.message;
+
+//});
+firebase.auth().signInWithEmailAndPassword(correo, password).catch(function(error) {
+  // Handle Errors here.
+  var errorCode = error.code;
+  var errorMessage = error.message;
+  alert("a ocurrido un error :(");
+    alert(errorCode);
+    alert(errorMessage);
+  // ...
+});
+    alert("bienvenido");
+//document.login.action = pagina;
+//document.login.submit();
+
+}
+function cerrar(){
+firebase.auth().signOut().then(function() {
+  // Sign-out successful.
+}, function(error) {
+alert(error);
+});
+alert("se cerro su seccion");
+}
+
+    </script>
+  </head>
+  <body>
+    <h1>App BodyGym</h1>
+
+	 <section id="Login" >
+	  
+		  
+<form name="login" action="" method="get">
+ Correo: <input name="correo" type="text" value="" /><br>
+ Password: <input name="password" type="password" value="" /><br>
+<input type="button" value="Entrar" onClick="enviar('index0.html')"><br>
+Si eres nuevo Registrate<input type="button" value="Registrarse" onClick="cerrar()"><br>
+</form>
+	 </section>
+  </body>
+</html>
